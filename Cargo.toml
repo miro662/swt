@@ -1,0 +1,8 @@
+[package]
+name = "swt"
+version = "0.1.0"
+authors = ["miro662 <miro662@gmail.com>"]
+
+[dependencies]
+ansi_term = "*"
+regex = "*"
