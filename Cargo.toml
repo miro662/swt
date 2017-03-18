@@ -6,3 +6,5 @@ authors = ["miro662 <miro662@gmail.com>"]
 [dependencies]
 ansi_term = "*"
 regex = "*"
+clap = "*"
+rand = "*"
