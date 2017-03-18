@@ -3,7 +3,11 @@ Very simple word teacher designed for people preparing for polish Matura exam, w
 
 ## Syntax
 ```
-swt wordbase
+swt -b wordbase_name
+```
+More info can be obtained using
+```
+swt --help
 ```
 
 ## Wordbase
