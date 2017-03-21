@@ -19,7 +19,7 @@ fn teach(wordbase:&WordBase, lang: Language) -> ! {
             }
             word = rand::thread_rng().choose(wordbase).unwrap();
         }
-        word.ask(lang);
+        word.ask(lang, false);
         last_word = word.clone();
     }
 }

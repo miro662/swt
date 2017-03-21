@@ -56,35 +56,44 @@ impl Word {
         answers
     }
 
-    pub fn ask(&self, lang: Language) -> bool {
+    pub fn ask(&self, lang: Language, once:bool) -> bool {
         let ask_lang = lang;
         let answer_lang = match lang {
             Language::English => Language::Polish,
             Language::Polish => Language::English,
         };
+        let mut result = false;
+            println!("{} {}",
+                    Style::new().bold().paint(self.get_answers(ask_lang)),
+                    if self.extended {
+                        Yellow.paint("extended level")
+                    } else {
+                        Yellow.paint("basic level")
+                    });
+        
+        'asking: loop {
 
-        println!("{} {}",
-                 Style::new().bold().paint(self.get_answers(ask_lang)),
-                 if self.extended {
-                     Yellow.paint("extended level")
-                 } else {
-                     Yellow.paint("basic level")
-                 });
+            let mut answer = String::new();
+            io::stdin()
+                .read_line(&mut answer)
+                .expect("Cannot read line");
 
-        let mut answer = String::new();
-        io::stdin()
-            .read_line(&mut answer)
-            .expect("Cannot read line");
+            result = self.check(answer_lang, &answer);
 
-        let result = self.check(answer_lang, &answer);
-
-        if result {
-            println!("{}", Green.bold().paint("OK!"));
-        } else {
-            println!("{} {}\n",
-                     Red.bold().paint("Wrong, correct answer(s):"),
-                     self.get_answers(answer_lang));
-        };
+            if result {
+                println!("{}", Green.bold().paint("OK!"));
+                break 'asking;
+            } else {
+                println!("{} {}",
+                        Red.bold().paint("Wrong, correct answer(s):"),
+                        self.get_answers(answer_lang));
+                
+                if once {
+                    break 'asking;
+                }
+            };
+        }
+        println!("");
 
         result
     }
